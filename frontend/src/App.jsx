@@ -59,7 +59,7 @@ function App() {
       setViewMode('preview')
     } catch (error) {
       console.error('Error generating website:', error)
-      alert('Error generating website. Please ensure the backend is running and OPENAI API key is valid.');
+      alert('Error generating website. Please ensure the backend is running and the API key is valid.');
     } finally {
       setIsGenerating(false)
     }
