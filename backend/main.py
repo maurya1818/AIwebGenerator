@@ -5,6 +5,12 @@ from dotenv import load_dotenv
 # Load environment variables FIRST before importing routers that depend on them
 load_dotenv()
 
+import sys
+import os
+
+# Append current directory to path to ensure imports work in Vercel Serverless environment
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from routers import generator
 
 app = FastAPI(
