@@ -5,7 +5,7 @@ import json
 
 # Ensure groq key is loaded but use the OpenAI SDK structure
 client = AsyncOpenAI(
-    api_key=os.getenv("GROQ_API_KEY"),
+    api_key=os.getenv("GROQ_API_KEY", "dummy_key_to_allow_import"),
     base_url="https://api.groq.com/openai/v1"
 )
 
@@ -19,6 +19,10 @@ async def generate_website(prompt: str) -> dict:
     Generates website code (HTML, CSS, JS) based on user prompt.
     Returns a dictionary with 'html', 'css', and 'js' keys.
     """
+    current_key = os.getenv("GROQ_API_KEY", "")
+    if current_key == "" or current_key == "dummy_key_to_allow_import":
+        raise ValueError("GROQ_API_KEY environment variable is missing or invalid in Vercel settings.")
+        
     system_prompt = """
 You are an expert frontend developer and web designer. 
 Generate a high-quality, modern, and aesthetically pleasing website based on the user's prompt.
